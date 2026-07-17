@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'motion/react';
+import { LightBurst } from '@/components/light-burst';
 
 export function CompletionMoment({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
@@ -20,8 +21,9 @@ export function CompletionMoment({ children }: { children: React.ReactNode }) {
         times: reduced ? undefined : [0, 0.3, 1],
         ease: 'easeOut',
       }}
-      className="rounded-lg"
+      className="relative overflow-hidden rounded-lg"
     >
+      <LightBurst />
       {children}
     </motion.div>
   );

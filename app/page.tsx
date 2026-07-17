@@ -186,13 +186,14 @@ export default function Home() {
             {outreachCards.length > 0 && (
               <section className="flex flex-col gap-3">
                 <h2 className="font-heading text-lg font-medium">Outreach drafts</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2" style={{ perspective: 1000 }}>
                   {outreachCards.map((card, index) => (
                     <motion.div
                       key={card.creatorHandle}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.06, duration: 0.3, ease: EASE_OUT }}
+                      initial={{ opacity: 0, y: 16, rotateX: -8 }}
+                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                      transition={{ delay: index * 0.06, duration: 0.35, ease: EASE_OUT }}
+                      style={{ transformOrigin: 'top center' }}
                     >
                       <OutreachCard data={card} />
                     </motion.div>

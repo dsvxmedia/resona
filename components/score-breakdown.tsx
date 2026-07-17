@@ -38,7 +38,11 @@ export function ScoreBreakdown({ breakdown }: { breakdown: ScoreBreakdownData })
         {COMPONENTS.map(({ key, label }) => (
           <div key={key} className="flex items-center gap-3">
             <span className="w-36 shrink-0 text-xs text-muted-foreground">{label}</span>
-            <Progress value={breakdown[key] * 100} className="flex-1" />
+            <Progress
+              value={breakdown[key] * 100}
+              className="flex-1"
+              indicatorClassName="score-bar-gradient"
+            />
             <span className="w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
               <CountUp value={Math.round(breakdown[key] * 100)} />%
             </span>

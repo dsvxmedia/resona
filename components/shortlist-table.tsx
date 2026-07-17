@@ -26,13 +26,14 @@ function formatFollowers(n: number): string {
 
 export function ShortlistTable({ entries }: { entries: ShortlistEntry[] }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" style={{ perspective: 1000 }}>
       {entries.map((entry, index) => (
         <motion.div
           key={entry.creatorId}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.08, duration: 0.3, ease: EASE_OUT }}
+          initial={{ opacity: 0, y: 16, rotateX: -8 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ delay: index * 0.08, duration: 0.35, ease: EASE_OUT }}
+          style={{ transformOrigin: 'top center' }}
         >
           <Card>
             <CardHeader>
