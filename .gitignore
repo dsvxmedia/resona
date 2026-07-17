@@ -8,6 +8,13 @@ LEARNING.md
 MEMORY.md
 .claude/
 
+# weaponx engine data (build audit trail) and git worktree scratch space —
+# operational/internal, not part of the public app.
+memory/
+state/
+benchmark/
+.worktrees/
+
 # PLAN-LITE.md and TODOS.md contain internal strategy reasoning (why specific
 # Influur-adjacent features are deliberately withheld, IP-risk discussion) —
 # private, same as the other planning docs, even though PLAN-LITE is the
