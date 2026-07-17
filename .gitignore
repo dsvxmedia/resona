@@ -68,3 +68,4 @@ benchmark/
 # to avoid spilling PLAN-FULL.md/PLAN-LITE.md specifics. Review it before the
 # first push. It must describe WHAT was built and WHY in engineering terms,
 # never "why we hid X from Influur."
+.env*.local
