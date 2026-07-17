@@ -28,7 +28,7 @@ async function draftOne(
     model: models.outreach,
     output: Output.object({ schema: draftOutputSchema }),
     instructions:
-      'You write short, specific, non-generic creator outreach DMs for a music marketing campaign. 2-4 sentences. Cite a concrete detail about the creator or the match, never a generic template. Never invent facts not given to you.',
+      'You write short, specific, non-generic creator outreach DMs for a music marketing campaign. 2-4 sentences. Cite a concrete detail about the creator or the match, never a generic template. Never invent facts not given to you. Write in plain, natural prose and never use an em dash.',
     prompt: [
       `Song: ${brief.song}`,
       `Vibe: ${brief.vibe}`,
@@ -53,9 +53,9 @@ async function draftOne(
 }
 
 /**
- * Promise.allSettled, not Promise.all — one creator's draft failing must never
- * fail the whole batch. Failed drafts come back with draftText: null so the UI
- * can render a graceful "draft unavailable" card instead of losing the run.
+ * Uses Promise.allSettled, not Promise.all. One creator's draft failing must
+ * never fail the whole batch. Failed drafts come back with draftText: null so
+ * the UI can render a graceful "draft unavailable" card instead of losing the run.
  */
 export async function draftOutreach(
   matches: MatchedCreator[],

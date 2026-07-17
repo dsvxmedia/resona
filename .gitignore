@@ -41,7 +41,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Private planning/strategy docs — never let these reach the public repo.
+# Private planning/strategy docs. Never let these reach the public repo.
 # Before the first push, run `git ls-files` and confirm none of these appear.
 PLAN-FULL.md
 PLAN-LITE.md
@@ -51,20 +51,20 @@ LEARNING.md
 MEMORY.md
 .claude/
 
-# weaponx engine data (build audit trail) and git worktree scratch space —
-# operational/internal, not part of the public app.
+# weaponx engine data (build audit trail) and git worktree scratch space,
+# operational and internal, not part of the public app.
 memory/
 state/
 benchmark/
 .worktrees/
 
 # PLAN-LITE.md and TODOS.md contain internal strategy reasoning (why specific
-# Influur-adjacent features are deliberately withheld, IP-risk discussion) —
+# Influur-adjacent features are deliberately withheld, IP-risk discussion),
 # private, same as the other planning docs, even though PLAN-LITE is the
 # active build target.
 #
-# BUILD-EXPLAINED.md is intentionally NOT ignored — it's meant to be public
+# BUILD-EXPLAINED.md is intentionally NOT ignored. It's meant to be public
 # (a plain-language walkthrough for the cover letter/repo), written carefully
 # to avoid spilling PLAN-FULL.md/PLAN-LITE.md specifics. Review it before the
-# first push — it must describe WHAT was built and WHY in engineering terms,
+# first push. It must describe WHAT was built and WHY in engineering terms,
 # never "why we hid X from Influur."

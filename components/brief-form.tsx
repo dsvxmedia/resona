@@ -121,7 +121,7 @@ export function BriefForm({ onSubmit, disabled, urlError }: BriefFormProps) {
                 type="url"
                 value={tiktokUrl}
                 onChange={e => setTiktokUrl(e.target.value)}
-                placeholder="Paste any public TikTok video URL — try your own"
+                placeholder="Paste any public TikTok video URL, or try your own"
                 disabled={disabled}
                 aria-invalid={!!urlError}
               />

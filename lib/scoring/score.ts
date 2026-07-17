@@ -43,7 +43,7 @@ function jaccard(a: string[], b: string[]): number {
 
 /**
  * Deterministic, no LLM. Deliberately does NOT include raw follower_count as
- * a scoring factor — a 50k-follower creator who drives sound usage should be
+ * a scoring factor. A 50k-follower creator who drives sound usage should be
  * able to outrank a 5M-follower creator who doesn't.
  */
 export function scoreCreator(

@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Resona — find the creators who make songs travel",
+  title: "Resona: find the creators who make songs travel",
   description:
-    "Resona matches a song's reference video against a synthetic creator roster using real video classification, embeddings-based matching, and AI-drafted outreach. A portfolio demo built for Influur's AI Engineer role — not affiliated with Influur.",
+    "Resona matches a song's reference video against a synthetic creator roster using real video classification, embeddings-based matching, and AI-drafted outreach. A portfolio demo built for Influur's AI Engineer role. Not affiliated with Influur.",
 };
 
 export default function RootLayout({

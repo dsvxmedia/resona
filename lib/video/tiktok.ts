@@ -1,9 +1,9 @@
 /**
  * TikTok URL normalization + oEmbed fetching + caption/hashtag extraction.
  *
- * No API key required — TikTok's oEmbed endpoint (https://www.tiktok.com/oembed)
- * is public and keyless. This file must never throw on bad/hostile input; every
- * exported function returns a typed result.
+ * No API key required. TikTok's oEmbed endpoint (https://www.tiktok.com/oembed)
+ * is public and keyless. This file must never throw on bad or hostile input;
+ * every exported function returns a typed result.
  */
 
 // -------------------------------------------------------------------------
@@ -84,7 +84,7 @@ export async function normalizeTikTokUrl(input: string): Promise<NormalizedTikTo
     if (!finalHref) {
       return {
         ok: false,
-        error: "Couldn't resolve that short link — the redirect target didn't respond.",
+        error: "Couldn't resolve that short link. The redirect target didn't respond.",
       };
     }
     try {
@@ -129,7 +129,7 @@ export type OEmbedResult =
   | { ok: false; error: string; suggestion: string };
 
 const GENERIC_SUGGESTION =
-  'This video might be private or deleted — try a different public TikTok link.';
+  'This video might be private or deleted. Try a different public TikTok link.';
 
 export async function fetchTikTokOEmbed(canonicalUrl: string): Promise<OEmbedResult> {
   const endpoint = `https://www.tiktok.com/oembed?url=${encodeURIComponent(canonicalUrl)}`;
@@ -146,7 +146,7 @@ export async function fetchTikTokOEmbed(canonicalUrl: string): Promise<OEmbedRes
         ? 'Request to TikTok timed out.'
         : `Network error reaching TikTok: ${err instanceof Error ? err.message : String(err)}`,
       suggestion: isTimeout
-        ? 'TikTok took too long to respond — try again in a moment.'
+        ? 'TikTok took too long to respond. Try again in a moment.'
         : GENERIC_SUGGESTION,
     };
   }

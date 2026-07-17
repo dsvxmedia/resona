@@ -23,7 +23,7 @@ interface RawCreator {
   profile_text: string;
 }
 
-// Synthetic, clearly-fictional creator roster — labeled as such throughout the app.
+// Synthetic, clearly-fictional creator roster, labeled as such throughout the app.
 const creators: RawCreator[] = [
   {
     id: 'luzmaria-moves', handle: 'luzmaria.moves', display_name: 'Luz Maria',
@@ -59,7 +59,7 @@ const creators: RawCreator[] = [
     genres: ['pop', 'EDM/dance'], region: 'KR', base_rate_usd: 1800,
     sound_usage_rate: 0.74, completion_reliability: 0.93,
     content_tags: ['transition_edit', 'rapid_cuts', 'studio_clean', 'high_energy'],
-    profile_text: 'Jin-soo Park produces studio-clean transition edits synced tightly to drop moments, drawing heavily from K-pop editing conventions but applying them to any high-energy pop or dance track. Reliability is excellent — content ships on schedule and sound adoption among followers is strong.',
+    profile_text: 'Jin-soo Park produces studio-clean transition edits synced tightly to drop moments, drawing heavily from K-pop editing conventions but applying them to any high-energy pop or dance track. Reliability is excellent, content ships on schedule, and sound adoption among followers is strong.',
   },
   {
     id: 'amara-lights', handle: 'amara.lights', display_name: 'Amara Whitfield',
@@ -140,7 +140,7 @@ const creators: RawCreator[] = [
     genres: ['indie', 'pop'], region: 'US', base_rate_usd: 150,
     sound_usage_rate: 0.85, completion_reliability: 0.98,
     content_tags: ['single_take', 'intimate', 'grainy_lofi', 'chill'],
-    profile_text: 'Caleb Whitmore posts single-take porch session covers and originals from Nashville, grainy and lo-fi by choice. Despite a small following, his engagement and completion reliability are among the strongest in the roster — his audience shows up specifically for the music.',
+    profile_text: 'Caleb Whitmore posts single-take porch session covers and originals from Nashville, grainy and lo-fi by choice. Despite a small following, his engagement and completion reliability are among the strongest in the roster, since his audience shows up specifically for the music.',
   },
   {
     id: 'zanele-motion', handle: 'zanele.motion', display_name: 'Zanele Dube',
@@ -194,7 +194,7 @@ const creators: RawCreator[] = [
     genres: ['latin pop'], region: 'US', base_rate_usd: 5200,
     sound_usage_rate: 0.4, completion_reliability: 0.72,
     content_tags: ['dance_performance', 'high_energy', 'golden_hour', 'chaotic_fun'],
-    profile_text: 'Camila Torres films high-energy beach-set latin pop dance routines from Miami at significant scale. Sound usage is moderate relative to her size — she often mixes in non-music content — but reach on featured tracks is substantial.',
+    profile_text: 'Camila Torres films high-energy beach-set latin pop dance routines from Miami at significant scale. Sound usage is moderate relative to her size, since she often mixes in non-music content, but reach on featured tracks is substantial.',
   },
   {
     id: 'liam-porchlight', handle: 'liam.porchlight', display_name: 'Liam O\'Connor',
@@ -336,7 +336,7 @@ async function main() {
     console.log(`Live embeddings generated for ${embeddings.length} creators.`);
   } catch (err) {
     console.error(
-      'embedMany failed — falling back to placeholder embeddings. Run this script again once API keys are configured.',
+      'embedMany failed, falling back to placeholder embeddings. Run this script again once API keys are configured.',
     );
     console.error(err instanceof Error ? err.message : err);
   }

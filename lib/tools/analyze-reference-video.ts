@@ -20,7 +20,7 @@ export type AnalyzeReferenceVideoResult =
  * Live tier only, keyless, Vercel-safe: TikTok oEmbed + thumbnail + one Claude
  * vision call. Feeds the oEmbed caption/hashtags into the vision prompt
  * alongside the thumbnail image, not thumbnail-only (per gstack review finding).
- * Never throws — always returns a typed {ok:false, error, suggestion} on failure
+ * Never throws. Always returns a typed {ok:false, error, suggestion} on failure
  * so the orchestrator/UI can degrade gracefully instead of crashing.
  */
 export async function analyzeReferenceVideo(
@@ -58,7 +58,7 @@ export async function analyzeReferenceVideo(
       ok: false,
       error: err instanceof Error ? err.message : 'Failed to fetch thumbnail',
       suggestion:
-        "Couldn't load that clip's preview image — try a different public TikTok link.",
+        "Couldn't load that clip's preview image. Try a different public TikTok link.",
     };
   }
 
@@ -90,7 +90,7 @@ export async function analyzeReferenceVideo(
       ok: false,
       error: err instanceof Error ? err.message : 'Video classification failed',
       suggestion:
-        "Couldn't read that clip — continuing with your genre and vibe instead.",
+        "Couldn't read that clip. Continuing with your genre and vibe instead.",
     };
   }
 }

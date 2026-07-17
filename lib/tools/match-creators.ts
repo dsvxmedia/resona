@@ -25,7 +25,7 @@ export type MatchCreatorsResult =
   | { ok: false; error: string; suggestion: string };
 
 /**
- * In-memory RAG over a static, checked-in creator dataset — no database.
+ * In-memory RAG over a static, checked-in creator dataset. No database.
  * Data-integrity guard: asserts the runtime embedding model/dimension matches
  * what data/creators.json was generated with, so a model bump in models.ts
  * can never silently compare vectors from two different embedding spaces.
@@ -65,7 +65,7 @@ export async function matchCreators(params: {
   const searchPool = pool.length > 0 ? pool : creatorsData.creators;
   const degraded =
     pool.length === 0
-      ? 'No creators fit the exact budget-per-creator — showing the closest matches anyway.'
+      ? 'No creators fit the exact budget per creator, so we are showing the closest matches anyway.'
       : undefined;
 
   let queryEmbedding: number[];
@@ -81,7 +81,7 @@ export async function matchCreators(params: {
       ok: false,
       error: err instanceof Error ? err.message : 'Embedding request failed',
       suggestion:
-        'Vector search is temporarily unavailable — try again in a moment.',
+        'Vector search is temporarily unavailable. Try again in a moment.',
     };
   }
 

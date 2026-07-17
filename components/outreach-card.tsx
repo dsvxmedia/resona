@@ -21,7 +21,7 @@ export function OutreachCard({ data }: { data: OutreachCardData }) {
           <CardAction>
             <Badge variant="secondary" className="gap-1">
               <MailX />
-              draft — never sent
+              draft, never sent
             </Badge>
           </CardAction>
         )}
@@ -32,7 +32,7 @@ export function OutreachCard({ data }: { data: OutreachCardData }) {
         ) : (
           <div className="flex items-center gap-2 rounded-md bg-muted p-3 text-sm text-muted-foreground">
             <FileWarning className="size-4 shrink-0" />
-            Draft unavailable for this creator — try regenerating, or reach out manually.
+            Draft unavailable for this creator. Try regenerating, or reach out manually.
           </div>
         )}
         <div>

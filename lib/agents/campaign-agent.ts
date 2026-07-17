@@ -14,7 +14,7 @@ export interface CampaignBrief {
   tiktokUrl: string;
 }
 
-/** Trimmed creator shape sent to the LLM/UI — never includes the raw embedding vector. */
+/** Trimmed creator shape sent to the LLM/UI. Never includes the raw embedding vector. */
 function trimMatch(m: MatchedCreator) {
   return {
     creatorId: m.creator.id,
@@ -30,12 +30,12 @@ function trimMatch(m: MatchedCreator) {
 }
 
 /**
- * One agent instance per request (never a module-level singleton) — the tools
+ * One agent instance per request, never a module-level singleton. The tools
  * close over `runState`, a per-run scratch space that lets match_creators hand
  * its full result to draft_outreach without shuttling embedding vectors or
  * bulky payloads through the model's own context. The model only ever sees
- * and passes forward trimmed, human-readable data; runState carries the rest.
- * This is also where "memory" concretely shows up within a run: the video
+ * and passes forward trimmed, human-readable data, and runState carries the rest.
+ * This is also where "memory" concretely shows up within a run. The video
  * signal informs the search query, and the search result informs drafting.
  */
 export function createCampaignAgent(brief: CampaignBrief) {
@@ -67,7 +67,7 @@ export function createCampaignAgent(brief: CampaignBrief) {
 
   const searchCreatorsTool = tool({
     description:
-      'Search and rank the creator roster against the campaign brief and any video signal already gathered. Scoring is deterministic (no LLM math) — audience fit, style match, sound engagement, engagement quality, reliability.',
+      'Search and rank the creator roster against the campaign brief and any video signal already gathered. Scoring is deterministic and uses no LLM math: audience fit, style match, sound engagement, engagement quality, reliability.',
     inputSchema: z.object({
       queryText: z
         .string()
@@ -124,9 +124,9 @@ export function createCampaignAgent(brief: CampaignBrief) {
 
   const agent = new ToolLoopAgent({
     model: models.orchestrator,
-    instructions: `You run one campaign-matching pipeline for a music marketing brief. Narrate each phase to the user in one plain, non-technical sentence before acting — no raw tool/function names in your narration.
+    instructions: `You run one campaign-matching pipeline for a music marketing brief. Narrate each phase to the user in one plain, non-technical sentence before acting. Do not use raw tool or function names in your narration. Write in plain prose. Never use an em dash. Use a period, a comma, or a normal joining word like "and" or "so" instead.
 
-THE CAMPAIGN BRIEF (already collected — do not ask the user for it, use it directly):
+THE CAMPAIGN BRIEF (already collected, do not ask the user for it, use it directly):
 - Song/artist: ${brief.song}
 - Genre/vibe: ${brief.vibe}
 - Target audience: ${brief.audience}
@@ -134,12 +134,12 @@ THE CAMPAIGN BRIEF (already collected — do not ask the user for it, use it dir
 - Reference TikTok URL: ${brief.tiktokUrl ? brief.tiktokUrl : '(none provided)'}
 
 Steps, in order:
-1. If a reference TikTok URL was provided above, call analyze_video_reference with that exact URL to understand its storytelling/pacing/energy/aesthetic. If it fails, say so plainly and continue anyway using the brief's genre/vibe alone — never stop the pipeline over a failed video analysis. If no URL was provided, skip straight to step 2.
-2. Call search_creators with queryText combining the song, vibe, and audience above (plus any video signal tags from step 1), and budgetPerCreatorUsd as given above.
+1. If a reference TikTok URL was provided above, call analyze_video_reference with that exact URL to understand its storytelling pattern, pacing, energy, and aesthetic. If it fails, say so plainly and continue anyway using the brief's genre and vibe alone. Never stop the pipeline over a failed video analysis. If no URL was provided, skip straight to step 2.
+2. Call search_creators with queryText combining the song, vibe, and audience above, plus any video signal tags from step 1, and budgetPerCreatorUsd as given above.
 3. Call draft_outreach for the top 3-5 creators from search_creators's results.
 4. Write a closing summary in under 120 words for a marketer: how many creators were found, the top pick and why, and whether the video reference was used.
 
-If any tool returns {ok:false}, explain the failure plainly to the user in one sentence and follow its suggestion — never let a single tool failure silently end the run without explanation. Never ask the user for brief details — they're already given above.`,
+If any tool returns {ok:false}, explain the failure plainly to the user in one sentence and follow its suggestion. Never let a single tool failure silently end the run without explanation. Never ask the user for brief details, since they are already given above.`,
     tools: {
       analyze_video_reference: analyzeVideoTool,
       search_creators: searchCreatorsTool,

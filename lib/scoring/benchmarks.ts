@@ -1,7 +1,7 @@
 /**
- * The one place follower count legitimately enters the scoring math — as a
+ * The one place follower count legitimately enters the scoring math, as a
  * benchmark denominator to normalize engagement_rate, never as a direct score
- * input. This preserves the plan's anti-follower-count principle: a 50k
+ * input. This preserves the plan's anti-follower-count principle. A 50k
  * creator who drives sound usage should be able to outrank a 5M creator who
  * doesn't, because raw follower_count never appears in ScoreBreakdown.
  */

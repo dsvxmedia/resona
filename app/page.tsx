@@ -66,8 +66,8 @@ export default function Home() {
 
   function handleSubmit(brief: CampaignBrief) {
     setSubmittedBrief(brief);
-    // Per-call body override — cleaner than a dynamic transport body function,
-    // and avoids any render-time ref/state-closure timing issues.
+    // Per-call body override. Cleaner than a dynamic transport body function,
+    // and it avoids any render-time ref/state-closure timing issues.
     sendMessage({ text: `Run the campaign for "${brief.song}".` }, { body: { brief } });
   }
 
@@ -141,7 +141,7 @@ export default function Home() {
           </h1>
           <p className="mt-2 max-w-xl text-muted-foreground">
             Tell Resona about your song and a reference video. Watch a live multi-agent
-            pipeline classify it, match it against a creator roster, and draft outreach —
+            pipeline classify it, match it against a creator roster, and draft outreach,
             all in one run.
           </p>
         </div>
