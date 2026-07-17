@@ -107,7 +107,7 @@ export function BriefForm({ onSubmit, disabled, urlError }: BriefFormProps) {
                 id="budget"
                 type="number"
                 min={0}
-                step={100}
+                step={1}
                 value={budgetUsd}
                 onChange={e => setBudgetUsd(Number(e.target.value) || 0)}
                 required
