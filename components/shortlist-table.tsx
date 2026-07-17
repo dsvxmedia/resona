@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { Card, CardHeader, CardTitle, CardAction, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScoreBreakdown, type ScoreBreakdownData } from '@/components/score-breakdown';
+import { EASE_OUT } from '@/lib/motion';
 
 export interface ShortlistEntry {
   creatorId: string;
@@ -30,7 +31,7 @@ export function ShortlistTable({ entries }: { entries: ShortlistEntry[] }) {
           key={entry.creatorId}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.08, duration: 0.35 }}
+          transition={{ delay: index * 0.08, duration: 0.3, ease: EASE_OUT }}
         >
           <Card>
             <CardHeader>

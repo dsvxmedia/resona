@@ -7,6 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-hero-background: var(--hero-background);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-hero-glow: var(--hero-glow);
   --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-display);
@@ -81,6 +84,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --hero-background: oklch(0.16 0.02 40);
+  --hero-glow: oklch(0.68 0.19 45 / 35%);
+  --hero-foreground: oklch(0.97 0.01 40);
 }
 
 .dark {
@@ -126,5 +132,31 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer components {
+  .hero-band {
+    background:
+      radial-gradient(120% 140% at 12% -10%, var(--hero-glow), transparent 60%),
+      var(--hero-background);
+    color: var(--hero-foreground);
+  }
+
+  .wordmark {
+    font-family: var(--font-body);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(
+      180deg,
+      oklch(0.99 0.005 40) 0%,
+      oklch(0.99 0.005 40) 18%,
+      oklch(0.62 0.04 40) 52%,
+      oklch(0.78 0.14 42) 75%,
+      oklch(0.93 0.06 45) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 }

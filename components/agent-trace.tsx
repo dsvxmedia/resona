@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { TraceCard, type TraceStage } from '@/components/trace-card';
+import { EASE_OUT } from '@/lib/motion';
 
 export function AgentTrace({ stages }: { stages: TraceStage[] }) {
   return (
@@ -11,7 +12,7 @@ export function AgentTrace({ stages }: { stages: TraceStage[] }) {
           key={stage.id}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.25, ease: EASE_OUT }}
         >
           <TraceCard stage={stage} />
         </motion.div>

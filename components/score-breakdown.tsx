@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { EASE_OUT } from '@/lib/motion';
 
 export interface ScoreBreakdownData {
   audience_fit: number;
@@ -34,7 +35,7 @@ export function ScoreBreakdown({ breakdown }: { breakdown: ScoreBreakdownData })
               className="h-full rounded-full bg-primary"
               initial={{ width: 0 }}
               animate={{ width: `${totalPct}%` }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+              transition={{ duration: 0.4, ease: EASE_OUT }}
             />
           </div>
         </div>

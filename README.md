@@ -6,6 +6,10 @@ Resona is a working, deployed proof of concept. It's a multi-agent AI pipeline t
 
 **Live demo:** https://resona-xi-three.vercel.app
 
+![Resona demo: a real live run, form fill through scored shortlist and drafted outreach](public/demo.gif)
+
+*Real recording of a live run: a real TikTok reference video, real Claude vision classification, real embeddings match, real drafted outreach. Sped up 5x from the actual run time.*
+
 Built to accompany an application for the **AI Engineer** role at [Influur](https://www.influur.com/). **Not affiliated with Influur.** This is a deliberately scoped proof of concept, not a full product build. Happy to walk through the fuller system design in conversation.
 
 ## What it does

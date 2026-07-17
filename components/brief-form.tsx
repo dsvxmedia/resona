@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { EASE_OUT } from '@/lib/motion';
 
 export interface CampaignBrief {
   song: string;
@@ -34,7 +35,7 @@ const fieldVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.06, duration: 0.35, ease: 'easeOut' as const },
+    transition: { delay: i * 0.05, duration: 0.28, ease: EASE_OUT },
   }),
 };
 

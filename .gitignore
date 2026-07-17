@@ -70,3 +70,4 @@ benchmark/
 # never "why we hid X from Influur."
 .env*.local
 .gstack/
+.playwright-cli/

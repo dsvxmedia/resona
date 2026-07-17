@@ -3,12 +3,14 @@
 import { useState } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import { motion } from 'motion/react';
 import { BriefForm, type CampaignBrief } from '@/components/brief-form';
 import { AgentTrace } from '@/components/agent-trace';
 import type { TraceStage, TraceStageStatus } from '@/components/trace-card';
 import { ShortlistTable, type ShortlistEntry } from '@/components/shortlist-table';
 import { OutreachCard, type OutreachCardData } from '@/components/outreach-card';
 import { FooterDisclaimer } from '@/components/footer-disclaimer';
+import { EASE_OUT } from '@/lib/motion';
 
 function Waveform() {
   const heights = [6, 14, 22, 12, 28, 18, 8, 24, 16, 10, 20, 6];
@@ -133,19 +135,21 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-6 py-16">
-        <div>
+      <div className="hero-band">
+        <div className="mx-auto w-full max-w-4xl px-6 py-16">
           <Waveform />
-          <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight">
+          <p className="wordmark mt-4 text-6xl sm:text-7xl">Resona</p>
+          <h1 className="mt-3 font-heading text-2xl font-medium tracking-tight text-hero-foreground/90 sm:text-3xl">
             Find the creators who make songs travel.
           </h1>
-          <p className="mt-2 max-w-xl text-muted-foreground">
+          <p className="mt-2 max-w-xl text-hero-foreground/60">
             Tell Resona about your song and a reference video. Watch a live multi-agent
             pipeline classify it, match it against a creator roster, and draft outreach,
             all in one run.
           </p>
         </div>
-
+      </div>
+      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-6 py-16">
         <BriefForm onSubmit={handleSubmit} disabled={isRunning} urlError={urlError} />
 
         {submittedBrief && (
@@ -166,8 +170,15 @@ export default function Home() {
           <section className="flex flex-col gap-3">
             <h2 className="font-heading text-lg font-medium">Outreach drafts</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {outreachCards.map(card => (
-                <OutreachCard key={card.creatorHandle} data={card} />
+              {outreachCards.map((card, index) => (
+                <motion.div
+                  key={card.creatorHandle}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.06, duration: 0.3, ease: EASE_OUT }}
+                >
+                  <OutreachCard data={card} />
+                </motion.div>
               ))}
             </div>
           </section>

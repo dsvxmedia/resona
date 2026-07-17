@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://resona-xi-three.vercel.app"),
   title: "Resona: find the creators who make songs travel",
   description:
     "Resona matches a song's reference video against a synthetic creator roster using real video classification, embeddings-based matching, and AI-drafted outreach. A portfolio demo built for Influur's AI Engineer role. Not affiliated with Influur.",
