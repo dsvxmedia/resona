@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Manrope, Geist_Mono } from "next/font/google";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -36,7 +37,8 @@ export default function RootLayout({
       className={`${fraunces.variable} ${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        {children}
+        <div className="grain-overlay" aria-hidden="true" />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

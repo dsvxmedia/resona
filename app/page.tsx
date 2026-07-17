@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { motion } from 'motion/react';
@@ -10,18 +11,18 @@ import type { TraceStage, TraceStageStatus } from '@/components/trace-card';
 import { ShortlistTable, type ShortlistEntry } from '@/components/shortlist-table';
 import { OutreachCard, type OutreachCardData } from '@/components/outreach-card';
 import { FooterDisclaimer } from '@/components/footer-disclaimer';
+import { Button } from '@/components/ui/button';
+import { Equalizer } from '@/components/equalizer';
+import { ScrollReveal } from '@/components/scroll-reveal';
+import { ProgressRail } from '@/components/progress-rail';
+import { HowItWorks } from '@/components/how-it-works';
+import { HeroGlow } from '@/components/hero-glow';
+import { CompletionMoment } from '@/components/completion-moment';
 import { EASE_OUT } from '@/lib/motion';
 
-function Waveform() {
-  const heights = [6, 14, 22, 12, 28, 18, 8, 24, 16, 10, 20, 6];
-  return (
-    <svg aria-hidden="true" viewBox="0 0 120 32" className="h-8 w-28 text-primary/50">
-      {heights.map((h, i) => (
-        <rect key={i} x={i * 10} y={(32 - h) / 2} width={4} height={h} rx={2} fill="currentColor" />
-      ))}
-    </svg>
-  );
-}
+const HeroShader = dynamic(() => import('@/components/hero-shader').then(m => m.HeroShader), {
+  ssr: false,
+});
 
 const STAGE_DEFS: Array<{ id: string; toolName: string; label: string; requiresVideo?: boolean }> = [
   { id: 'video', toolName: 'analyze_video_reference', label: 'Analyzing your reference video…', requiresVideo: true },
@@ -60,7 +61,7 @@ export default function Home() {
   const [submittedBrief, setSubmittedBrief] = useState<CampaignBrief | null>(null);
   const [urlError] = useState<string | undefined>(undefined);
 
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, setMessages, status } = useChat({
     transport: new DefaultChatTransport({ api: '/api/campaign' }),
   });
 
@@ -71,6 +72,11 @@ export default function Home() {
     // Per-call body override. Cleaner than a dynamic transport body function,
     // and it avoids any render-time ref/state-closure timing issues.
     sendMessage({ text: `Run the campaign for "${brief.song}".` }, { body: { brief } });
+  }
+
+  function handleReset() {
+    setMessages([]);
+    setSubmittedBrief(null);
   }
 
   const lastAssistantMessage = [...messages].reverse().find(m => m.role === 'assistant');
@@ -135,10 +141,12 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      <div className="hero-band">
-        <div className="mx-auto w-full max-w-4xl px-6 py-16">
-          <Waveform />
-          <p className="wordmark mt-4 text-6xl sm:text-7xl">Resona</p>
+      <div className="hero-band relative overflow-hidden">
+        <HeroShader />
+        <HeroGlow />
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-16">
+          <Equalizer />
+          <p className="wordmark mt-4 text-8xl sm:text-9xl">Resona</p>
           <h1 className="mt-3 font-heading text-2xl font-medium tracking-tight text-hero-foreground/90 sm:text-3xl">
             Find the creators who make songs travel.
           </h1>
@@ -149,44 +157,68 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-10 px-6 py-16">
-        <BriefForm onSubmit={handleSubmit} disabled={isRunning} urlError={urlError} />
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-6 py-16">
+        <HowItWorks />
 
-        {submittedBrief && (
-          <section className="flex flex-col gap-3">
-            <h2 className="font-heading text-lg font-medium">Agent trace</h2>
-            <AgentTrace stages={stages} />
-          </section>
-        )}
+        <div className="grid gap-8 lg:grid-cols-[400px_1fr] lg:items-start">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-8">
+            <ScrollReveal>
+              <BriefForm onSubmit={handleSubmit} disabled={isRunning} urlError={urlError} />
+            </ScrollReveal>
+            {submittedBrief && <ProgressRail stages={stages} />}
+          </div>
 
-        {shortlist.length > 0 && (
-          <section className="flex flex-col gap-3">
-            <h2 className="font-heading text-lg font-medium">Shortlist</h2>
-            <ShortlistTable entries={shortlist} />
-          </section>
-        )}
+          <div className="flex flex-col gap-10">
+            {submittedBrief && (
+              <section className="flex flex-col gap-3">
+                <h2 className="font-heading text-lg font-medium">Agent trace</h2>
+                <AgentTrace stages={stages} />
+              </section>
+            )}
 
-        {outreachCards.length > 0 && (
-          <section className="flex flex-col gap-3">
-            <h2 className="font-heading text-lg font-medium">Outreach drafts</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {outreachCards.map((card, index) => (
-                <motion.div
-                  key={card.creatorHandle}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.06, duration: 0.3, ease: EASE_OUT }}
-                >
-                  <OutreachCard data={card} />
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        )}
+            {shortlist.length > 0 && (
+              <section className="flex flex-col gap-3">
+                <h2 className="font-heading text-lg font-medium">Shortlist</h2>
+                <ShortlistTable entries={shortlist} />
+              </section>
+            )}
 
-        {summaryText && status === 'ready' && (
-          <section className="rounded-lg bg-muted/50 p-4 text-sm">{summaryText}</section>
-        )}
+            {outreachCards.length > 0 && (
+              <section className="flex flex-col gap-3">
+                <h2 className="font-heading text-lg font-medium">Outreach drafts</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {outreachCards.map((card, index) => (
+                    <motion.div
+                      key={card.creatorHandle}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.06, duration: 0.3, ease: EASE_OUT }}
+                    >
+                      <OutreachCard data={card} />
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {summaryText && status === 'ready' && (
+              <CompletionMoment>
+                <section className="flex flex-col gap-3 rounded-lg bg-muted/50 p-4 text-sm">
+                  <p>{summaryText}</p>
+                  <Button variant="outline" size="sm" className="w-fit" onClick={handleReset}>
+                    Run another campaign
+                  </Button>
+                </section>
+              </CompletionMoment>
+            )}
+
+            {!submittedBrief && (
+              <div className="hidden flex-1 items-center justify-center rounded-xl border border-dashed border-border p-12 text-center text-sm text-muted-foreground lg:flex">
+                Your live agent trace and results will stream in here.
+              </div>
+            )}
+          </div>
+        </div>
       </main>
       <FooterDisclaimer />
     </div>

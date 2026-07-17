@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Magnetic } from '@/components/magnetic';
 import { EASE_OUT } from '@/lib/motion';
 
 export interface CampaignBrief {
@@ -131,9 +132,11 @@ export function BriefForm({ onSubmit, disabled, urlError }: BriefFormProps) {
           </motion.div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" disabled={disabled} className="w-full">
-            {disabled ? 'Analyzing…' : 'Find my creators'}
-          </Button>
+          <Magnetic className="w-full" strength={0.3}>
+            <Button type="submit" disabled={disabled} className="w-full">
+              {disabled ? 'Analyzing…' : 'Find my creators'}
+            </Button>
+          </Magnetic>
         </CardFooter>
       </form>
     </Card>

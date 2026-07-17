@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'motion/react';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { EASE_OUT } from '@/lib/motion';
+import { CircularScoreDial } from '@/components/circular-score-dial';
+import { CountUp } from '@/components/count-up';
 
 export interface ScoreBreakdownData {
   audience_fit: number;
@@ -27,19 +27,11 @@ export function ScoreBreakdown({ breakdown }: { breakdown: ScoreBreakdownData })
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center gap-3">
-        <span className="font-heading text-3xl font-semibold tabular-nums">{totalPct}</span>
-        <div className="flex-1">
-          <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
-            <motion.div
-              className="h-full rounded-full bg-primary"
-              initial={{ width: 0 }}
-              animate={{ width: `${totalPct}%` }}
-              transition={{ duration: 0.4, ease: EASE_OUT }}
-            />
-          </div>
+      <div className="flex items-center gap-4">
+        <CircularScoreDial value={totalPct} />
+        <div className="flex flex-1 flex-col gap-1">
+          <Badge variant="outline" className="w-fit">Deterministic score</Badge>
         </div>
-        <Badge variant="outline">Deterministic score</Badge>
       </div>
 
       <div className="grid gap-2">
@@ -48,7 +40,7 @@ export function ScoreBreakdown({ breakdown }: { breakdown: ScoreBreakdownData })
             <span className="w-36 shrink-0 text-xs text-muted-foreground">{label}</span>
             <Progress value={breakdown[key] * 100} className="flex-1" />
             <span className="w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
-              {Math.round(breakdown[key] * 100)}%
+              <CountUp value={Math.round(breakdown[key] * 100)} />%
             </span>
           </div>
         ))}

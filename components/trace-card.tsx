@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, AlertTriangle, ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { EASE_OUT } from '@/lib/motion';
 
@@ -49,6 +50,13 @@ export function TraceCard({ stage }: { stage: TraceStage }) {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium">{stage.label}</p>
+
+        {stage.status === 'active' && (
+          <div className="mt-3 flex flex-col gap-2">
+            <Skeleton className="h-3 w-4/5" />
+            <Skeleton className="h-3 w-3/5" />
+          </div>
+        )}
 
         {stage.status === 'error' && stage.errorMessage && (
           <div className="mt-2 rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">

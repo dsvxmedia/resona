@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { Card, CardHeader, CardTitle, CardAction, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScoreBreakdown, type ScoreBreakdownData } from '@/components/score-breakdown';
+import { CountUp } from '@/components/count-up';
 import { EASE_OUT } from '@/lib/motion';
 
 export interface ShortlistEntry {
@@ -41,7 +42,8 @@ export function ShortlistTable({ entries }: { entries: ShortlistEntry[] }) {
                 <span className="font-normal text-muted-foreground">@{entry.handle}</span>
               </CardTitle>
               <CardAction className="text-sm text-muted-foreground">
-                {formatFollowers(entry.followerCount)} · {entry.region}
+                <CountUp value={entry.followerCount} format={formatFollowers} duration={1} /> ·{' '}
+                {entry.region}
               </CardAction>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
