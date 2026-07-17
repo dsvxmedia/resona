@@ -69,3 +69,4 @@ benchmark/
 # first push. It must describe WHAT was built and WHY in engineering terms,
 # never "why we hid X from Influur."
 .env*.local
+.gstack/
