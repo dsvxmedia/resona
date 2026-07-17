@@ -4,6 +4,8 @@
 
 Resona is a working, deployed proof of concept. It's a multi-agent AI pipeline that takes a music marketing brief plus a real TikTok reference video and produces a scored, explainable creator shortlist with drafted outreach, end to end, streamed live.
 
+**Live demo:** https://resona-xi-three.vercel.app
+
 Built to accompany an application for the **AI Engineer** role at [Influur](https://www.influur.com/). **Not affiliated with Influur.** This is a deliberately scoped proof of concept, not a full product build. Happy to walk through the fuller system design in conversation.
 
 ## What it does
@@ -17,7 +19,7 @@ Built to accompany an application for the **AI Engineer** role at [Influur](http
 
 ## Why it's built this way
 
-- **Multi-agent orchestration, not a single prompt.** An orchestrator (`ToolLoopAgent`, AI SDK v6/v7) coordinates three tools: video analysis, creator search, and outreach drafting. Each tool is backed by a different model chosen for the job, not out of convenience.
+- **Multi-agent orchestration, not a single prompt.** An orchestrator (`ToolLoopAgent`, AI SDK v7) coordinates three tools: video analysis, creator search, and outreach drafting. Each tool is backed by a different model chosen for the job, not out of convenience.
 - **Deliberate model selection.** Claude Sonnet 5 handles reasoning and vision (agentic tool use, multimodal classification). Claude Haiku 4.5 handles cheap parallel copy generation. OpenAI `text-embedding-3-small` handles embeddings. Scoring itself is **not** an LLM call. It's a transparent, unit-tested TypeScript formula, because asking a model to do arithmetic is the wrong tool for the job.
 - **Real RAG, no database.** At this corpus size (33 creators), an in-memory JSON dataset with precomputed embeddings and cosine similarity is the right engineering call. A real Postgres/pgvector layer would be pure overhead here. The production-scale schema is designed and ready, it's just not the right choice at this scale, and saying so is the point.
 - **Error handling that's actually exercised, not theoretical.** Every external call (TikTok oEmbed, embeddings, LLM calls) returns a typed `{ok, ...}` result instead of throwing. A bad, private, or short-link (`vm.tiktok.com`) TikTok URL degrades gracefully with an on-brand message in the trace UI instead of crashing. Outreach drafting uses `Promise.allSettled`, so one failed draft never takes down the whole batch.
