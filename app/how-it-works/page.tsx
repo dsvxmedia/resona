@@ -118,9 +118,19 @@ export default function HowItWorks() {
         </ul>
       </section>
 
-      <Link href="/" className="text-sm text-primary hover:underline">
-        ← Try it yourself
-      </Link>
+      <div className="flex flex-col gap-2">
+        <Link href="/" className="text-sm text-primary hover:underline">
+          ← Try it yourself
+        </Link>
+        <a
+          href="/Resona-Build-Explained.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-primary hover:underline"
+        >
+          Read the full behind-the-scenes build writeup (PDF) →
+        </a>
+      </div>
     </div>
   );
 }
