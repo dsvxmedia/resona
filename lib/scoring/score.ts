@@ -45,6 +45,13 @@ function jaccard(a: string[], b: string[]): number {
  * Deterministic, no LLM. Deliberately does NOT include raw follower_count as
  * a scoring factor. A 50k-follower creator who drives sound usage should be
  * able to outrank a 5M-follower creator who doesn't.
+ *
+ * Weights favor the brief-dependent factors (audience_fit + style_match,
+ * 65% combined) over the roster-baseline factors (sound_engagement +
+ * engagement_quality + reliability, 35% combined). The baseline factors
+ * cluster near their ceiling for most creators in a curated roster, so
+ * weighting them too heavily made a handful of strong generalists win
+ * regardless of how different the brief actually was.
  */
 export function scoreCreator(
   creator: Creator,
@@ -62,11 +69,11 @@ export function scoreCreator(
   const reliability = clamp(creator.completion_reliability, 0, 1);
 
   const total = clamp(
-    0.3 * audience_fit +
-      0.25 * style_match +
-      0.2 * sound_engagement +
-      0.15 * engagement_quality +
-      0.1 * reliability,
+    0.35 * audience_fit +
+      0.3 * style_match +
+      0.15 * sound_engagement +
+      0.12 * engagement_quality +
+      0.08 * reliability,
     0,
     1,
   );

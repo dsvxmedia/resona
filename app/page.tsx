@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { motion } from 'motion/react';
@@ -155,6 +156,12 @@ export default function Home() {
             pipeline classify it, match it against a creator roster, and draft outreach,
             all in one run.
           </p>
+          <Link
+            href="/how-it-works"
+            className="mt-3 inline-block text-sm text-hero-foreground/70 underline underline-offset-4 hover:text-hero-foreground"
+          >
+            How this demo works, and how to use it →
+          </Link>
         </div>
       </div>
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-6 py-16">
